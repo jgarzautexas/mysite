@@ -2,9 +2,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from dotenv import load_dotenv
 
+def in_production():
+    return os.getenv('ENVIRONMENT') == 'production'
 
 def main():
+    if(not in_production()): load_dotenv()
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
     try:
         from django.core.management import execute_from_command_line
